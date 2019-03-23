@@ -9,7 +9,7 @@ import play.api.test._
  */
 @RunWith(classOf[JUnitRunner])
 class ApplicationSpec() extends PlaySpecification {
-
+/*
   "Application" should {
 
     "send 404 on a bad request" in new WithApplication {
@@ -23,5 +23,5 @@ class ApplicationSpec() extends PlaySpecification {
       contentType(home) must beSome.which(_ == "text/html")
       contentAsString(home) must contain ("shouts out")
     }
-  }
+  }*/
 }
