@@ -16,14 +16,7 @@ GET		/temp				edu.trinity.webapps.controllers.TempController.month(month: Int, y
 POST	/temp				edu.trinity.webapps.controllers.TempController.postMonth
 POST	/tempForm			edu.trinity.webapps.controllers.TempController.postMonthForm
 +nocsrf
-POST 	/postUser			edu.trinity.webapps.controllers.Application.postUser
-+nocsrf
-POST 	/addData			edu.trinity.webapps.controllers.Application.addData
-+nocsrf
-POST 	/removeData			edu.trinity.webapps.controllers.Application.removeData
-+nocsrf
-POST 	/createAccount			edu.trinity.webapps.controllers.Application.createAccount
-GET     /logOut                 	edu.trinity.webapps.controllers.Application.index
+
 
 
 

@@ -10,18 +10,7 @@ import edu.trinity.webapps.shared.SharedMessages
 //import play.api.i18n._
 //import models._
 
-case class UserForm(name: String, pass: String)
 
-object UserForm {
-  val form: Form[UserForm]= Form(
-    mapping(
-          "name" -> nonEmptyText,
-          "pass" -> nonEmptyText
-          )(UserForm.apply)(UserForm.unapply)
-    
-    )    
-  
-}
 
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -34,110 +23,7 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     
   //}
   
-  def createAccount = Action{ implicit request =>
-    val postBody = request.body.asFormUrlEncoded
-    postBody.map { args =>
-      try {
-        val name = args("newName").head.toString
-        val pass = args("newPass").head.toString
-        println("WEEEEE")
-        Models.users.addUser(name, pass)
-        Ok(views.html.UserData(Models.users.getData(name))).withSession("username" -> name)
-        
-        
-          
-        
-      } catch {
-        case ex: NumberFormatException => Redirect("index", 200)
-      }
-    }.getOrElse(Redirect("index", 200))
-  }
-    
-    
-    
   
-  
-  def removeData = Action { implicit request =>
-    val postBody = request.body.asFormUrlEncoded
-    postBody.map { args =>
-      try {
-        val data = args("data").head.toString
-        
-        
-            request.session.get("username").map {  user =>
-            Models.users.removeData(user, data)
-            Ok(views.html.UserData(Models.users.getData(user)))   
-          
-        }.getOrElse{
-          
-          Ok(views.html.index(request.session.get("username")))
-        }
-        
-          
-        
-      } catch {
-        case ex: NumberFormatException => Redirect("index", 200)
-      }
-    }.getOrElse(Redirect("index", 200))
-  }
-
-  
-  def addData = Action { implicit request =>
-    val postBody = request.body.asFormUrlEncoded
-    postBody.map { args =>
-      try {
-        val data = args("newData").head.toString
-        
-        
-            request.session.get("username").map {  user =>
-            Models.users.addData(user, data)
-            Ok(views.html.UserData(Models.users.getData(user)))   
-          
-        }.getOrElse{
-          
-          Ok(views.html.index(request.session.get("username")))
-        }
-        
-          
-        
-      } catch {
-        case ex: NumberFormatException => Redirect("index", 200)
-      }
-    }.getOrElse(Redirect("index", 200))
-  }
-
-  
-  
-  
-  def postUser = Action { implicit request =>
-    val postBody = request.body.asFormUrlEncoded
-    postBody.map { args =>
-      try {
-        val name = args("name").head.toString
-        val pass = args("pass").head.toString
-        
-        val valid = Models.users.validateUser(name, pass).booleanValue()
-        
-        //println(valid)
-        
-        if(valid){
-          //println("WEEEEEEEEEEEEEEE")
-          Ok(views.html.UserData(Models.users.getData(name))).withSession("username" -> name)
-        } else {
-          
-          Ok(views.html.index(request.session.get("username")))
-          
-        }
-      } catch {
-        case ex: NumberFormatException => Redirect("index", 200)
-      }
-    }.getOrElse(Redirect("index", 200))
-  }
-
-  def logOut = Action { implicit request =>
-    Ok(views.html.index(request.session.get("username")))    
-    
-  }
   
   
 

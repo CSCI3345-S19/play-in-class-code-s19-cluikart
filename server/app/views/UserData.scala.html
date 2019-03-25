@@ -2,35 +2,5 @@
 @(data: collection.mutable.ArrayBuffer[String])
 
 @main("Tasks") {
-	<table>
-		@for(row <- data) {
-			<tr>
-				<td>@row</td>
-				<td><form action="removeData" method="post">
-				<input type="hidden" name="data" value=@row></input>
-		
-				<input type="submit" value="Delete" name="del@row" id="del@row"></input>
-		
-				</form>
-				</td>
-				
-			</tr>
-		}
-	</table>
-	
-	<form action="addData" method="post">
-	
-		<input type="text" name="newData"></input>
-		
-		<input type="submit" value="Add Task"></input>
-		
-	</form>
-	<form action="logOut" method="get">
-	
-		<input type="hidden" name="a"></input>
-		
-		<input type="submit" value="logOut" id="logout"></input>
-		
-	</form>
 	
 }
